@@ -11,6 +11,8 @@
 #include "BrowserHost.h"
 #include "LinuxNativeNotification.h"
 
+#include <libnotify/notify.h>
+
 #ifndef H_LinuxNativeNotificationAPI
 #define H_LinuxNativeNotificationAPI
 
@@ -31,19 +33,9 @@ public:
     LinuxNativeNotificationAPI(const LinuxNativeNotificationPtr& plugin, const FB::BrowserHostPtr& host) :
         m_plugin(plugin), m_host(host)
     {
-        registerMethod("echo",      make_method(this, &LinuxNativeNotificationAPI::echo));
-        registerMethod("testEvent", make_method(this, &LinuxNativeNotificationAPI::testEvent));
-        
-        // Read-write property
-        registerProperty("testString",
-                         make_property(this,
-                                       &LinuxNativeNotificationAPI::get_testString,
-                                       &LinuxNativeNotificationAPI::set_testString));
-        
-        // Read-only property
-        registerProperty("version",
-                         make_property(this,
-                                       &LinuxNativeNotificationAPI::get_version));
+        notify_init("linuxnativenotification");
+
+        registerMethod("notify",      make_method(this, &LinuxNativeNotificationAPI::notify));
     }
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -53,26 +45,17 @@ public:
     ///         the browser is done with it; this will almost definitely be after
     ///         the plugin is released.
     ///////////////////////////////////////////////////////////////////////////////
-    virtual ~LinuxNativeNotificationAPI() {};
+    ~LinuxNativeNotificationAPI()
+    {
+        notify_uninit();
+    };
 
     LinuxNativeNotificationPtr getPlugin();
 
-    // Read/Write property ${PROPERTY.ident}
-    std::string get_testString();
-    void set_testString(const std::string& val);
-
-    // Read-only property ${PROPERTY.ident}
-    std::string get_version();
-
-    // Method echo
-    FB::variant echo(const FB::variant& msg);
-    
-    // Event helpers
-    FB_JSAPI_EVENT(test, 0, ());
-    FB_JSAPI_EVENT(echo, 2, (const FB::variant&, const int));
-
-    // Method test-event
-    void testEvent();
+    // Method notify
+    FB::variant notify(const FB::variant& summary,
+                       const FB::variant& body,
+                       const FB::variant& icon);
 
 private:
     LinuxNativeNotificationWeakPtr m_plugin;

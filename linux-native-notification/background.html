@@ -1,0 +1,20 @@
+<html>
+<embed type="application/x-linuxnativenotification" id="notify-osd">
+<script>
+    var osd = document.getElementById("notify-osd");
+    console.log('Welcome to the background, go away.');
+
+    function chromifyRequest(request, sender, callback)
+    {
+        // Hint, it's always text.
+        if( request.notificationType != 'HTML' )
+        {
+            osd.notify(request.title, request.body, request.iconUrl);
+        }
+    };
+
+    chrome.extension.onRequest.addListener(chromifyRequest);
+    chrome.extension.onRequestExternal.addListener(chromifyRequest);
+</script>
+</body>
+</html>

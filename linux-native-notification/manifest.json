@@ -1,0 +1,25 @@
+{
+   "name": "Linux Native Notification",
+   "version": "1.0.0",
+   "background_page": "background.html",
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "cs.js" ],
+      "matches": ["<all_urls>"],
+      "run_at": "document_end"
+   } ],
+   "description": "Properly support notify-osd notifications in Chrome.",
+   "icons": {
+      "128": "img/cosd_128.png",
+      "16": "img/cosd_16.png",
+      "48": "img/cosd_48.png"
+   },
+   "permissions": [ "notifications" ],
+   "plugins": [ {
+      "path": "plugins/amd64/npLinuxNativeNotification.so",
+      "public": true
+   }, {
+      "path": "plugins/i386/npLinuxNativeNotification.so",
+      "public": true
+   } ]
+}

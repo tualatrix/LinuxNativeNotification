@@ -62,6 +62,7 @@ private:
     FB::BrowserHostPtr m_host;
 
     std::string m_testString;
+    std::string m_previous_summary;
 };
 
 #endif // H_LinuxNativeNotificationAPI

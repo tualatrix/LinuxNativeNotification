@@ -77,7 +77,13 @@ FB::variant LinuxNativeNotificationAPI::notify(const FB::variant& summary,
                                                          str_body.c_str(),
                                                          "/tmp/linuxnativenotification_image");
 
-    if(notify_notification_show(pnote, NULL) == FALSE)
+   // Try to append the notification
+   if (str_summary == m_previous_summary)
+      notify_notification_set_hint_string (pnote, "x-canonical-append", "true");
+
+    m_previous_summary = str_summary;
+
+    if (notify_notification_show(pnote, NULL) == FALSE)
         return FB::variant(false);
 
     return FB::variant(true);

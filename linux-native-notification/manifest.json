@@ -1,6 +1,6 @@
 {
    "name": "Linux Native Notification",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "homepage_url": "https://github.com/tualatrix/LinuxNativeNotification",
    "background_page": "background.html",
    "content_scripts": [ {

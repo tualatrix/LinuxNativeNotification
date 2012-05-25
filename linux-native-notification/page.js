@@ -14,6 +14,11 @@ if (window.webkitNotifications)
                     console.log("Get notified!");
                     var chromifyOSDComEvent = document.createEvent("Event");
                     chromifyOSDComEvent.initEvent("chromifyOSDComEvent", true, true);
+
+                    if (iconUrl.match('^/') != null) {
+                        iconUrl = window.location.origin + iconUrl;
+                        console.log("Icon url isn't start with http, rebuild it to: " + iconUrl);
+                    }
                     
                     // Please use JSON object serialization soon.
                     var container = document.createElement("div");

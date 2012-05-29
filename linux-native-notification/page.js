@@ -15,9 +15,14 @@ if (window.webkitNotifications)
                     var chromifyOSDComEvent = document.createEvent("Event");
                     chromifyOSDComEvent.initEvent("chromifyOSDComEvent", true, true);
 
-                    if (iconUrl.match('^/') != null) {
-                        iconUrl = window.location.origin + iconUrl;
-                        console.log("Icon url isn't start with http, rebuild it to: " + iconUrl);
+                    if (iconUrl.match('^http') == null) {
+                        if (iconUrl.match('^/') == null) {
+                            iconUrl = window.location.origin + window.location.pathname.replace(/\\/g,'/').replace(/\/[^\/]*$/, '/') + iconUrl;
+                            console.log("Icon url isn't start with http and /, rebuild it to: " + iconUrl);
+                        } else {
+                            iconUrl = window.location.origin + iconUrl;
+                            console.log("Icon url isn't start with http, rebuild it to: " + iconUrl);
+                        }
                     }
                     
                     // Please use JSON object serialization soon.

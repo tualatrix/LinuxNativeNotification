@@ -1,9 +1,9 @@
 var osd = document.getElementById("notify-osd");
-console.log('Welcome to the background, go away.');
+// console.log('Welcome to the background, go away.');
 
 function chromifyRequest(request, sender, callback)
 {
-    console.log("background");
+    // console.log("background");
     // Hint, it's always text.
     if( request.notificationType != 'HTML' )
     {

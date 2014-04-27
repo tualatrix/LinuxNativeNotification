@@ -57,3 +57,18 @@ if (window.webkitNotifications)
         }
     })();
 }
+
+if (window.Notification)
+{
+    (function()
+    {
+      window.originalNotification = window.Notification;
+      window.Notification = function(title, hash){
+        var n = window.webkitNotifications.createNotification(hash.icon, title, hash.body);
+        this.show = function(){
+          console.log("Show");
+          n.show();
+        }
+      };
+    })();
+}

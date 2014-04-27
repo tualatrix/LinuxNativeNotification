@@ -34,6 +34,8 @@ SET( SOURCES
     ${GENERATED}
     )
 
+SET(CMAKE_CXX_FLAGS "-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -pthread -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include")
+
 # This will include Win/projectDef.cmake, X11/projectDef.cmake, Mac/projectDef 
 # depending on the platform
 include_platform()

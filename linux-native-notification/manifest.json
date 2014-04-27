@@ -1,14 +1,21 @@
 {
+   "manifest_version": 2,
+   "update_url":"http://clients2.google.com/service/update2/crx",
    "name": "Linux Native Notification",
-   "version": "1.0.3",
+   "version": "1.0.4",
    "homepage_url": "https://github.com/tualatrix/LinuxNativeNotification",
-   "background_page": "background.html",
+   // "background_page": "background.html",
+   "background": {
+     "page": "background.html",
+     "persistent": false
+   },
    "content_scripts": [ {
       "all_frames": true,
       "js": [ "cs.js" ],
       "matches": ["<all_urls>"],
       "run_at": "document_end"
    } ],
+   "web_accessible_resources": ["cs.js", "page.js"],
    "description": "Properly support notify-osd notifications in Chrome.",
    "icons": {
       "128": "img/cosd_128.png",

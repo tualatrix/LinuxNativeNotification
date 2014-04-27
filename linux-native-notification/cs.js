@@ -16,13 +16,15 @@ document.addEventListener("chromifyOSDComEvent", function(e)
     var notificationType = event_data.firstChild.nextSibling.nextSibling.nextSibling.innerHTML;
     event_data.parentNode.removeChild(event_data);
 
-    chrome.extension.sendRequest(
+    // console.log(title, body, iconUrl, notificationType);
+    // console.log(chrome.runtime.id);
+    chrome.runtime.sendMessage(chrome.runtime.id,
     {
         title: title, body: body, iconUrl: iconUrl, notificationType: notificationType
     },
     function(response)
     {
-        console.log(response);
+        // console.log(response);
         // do something, or nothing, depending on the response from background.html
     });
 });

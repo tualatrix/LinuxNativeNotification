@@ -11,17 +11,17 @@ if (window.webkitNotifications)
                 n.original_show = n.show;
                 n.show = function()
                 {
-                    console.log("Get notified!");
+                    // console.log("Get notified!");
                     var chromifyOSDComEvent = document.createEvent("Event");
                     chromifyOSDComEvent.initEvent("chromifyOSDComEvent", true, true);
 
                     if (iconUrl.match('^http') == null) {
                         if (iconUrl.match('^/') == null) {
                             iconUrl = window.location.origin + window.location.pathname.replace(/\\/g,'/').replace(/\/[^\/]*$/, '/') + iconUrl;
-                            console.log("Icon url isn't start with http and /, rebuild it to: " + iconUrl);
+                            // console.log("Icon url isn't start with http and /, rebuild it to: " + iconUrl);
                         } else {
                             iconUrl = window.location.origin + iconUrl;
-                            console.log("Icon url isn't start with http, rebuild it to: " + iconUrl);
+                            // console.log("Icon url isn't start with http, rebuild it to: " + iconUrl);
                         }
                     }
                     
@@ -45,7 +45,7 @@ if (window.webkitNotifications)
                     
                     // GTFO.
                     document.dispatchEvent(chromifyOSDComEvent);
-                    console.log("Dispatched!", title, body, iconUrl);
+                    // console.log("Dispatched!", title, body, iconUrl);
                 }
                 
                 return n;
@@ -55,5 +55,20 @@ if (window.webkitNotifications)
                 return false;
             }
         }
+    })();
+}
+
+if (window.Notification)
+{
+    (function()
+    {
+      window.originalNotification = window.Notification;
+      window.Notification = function(title, hash){
+        var n = window.webkitNotifications.createNotification(hash.icon, title, hash.body);
+        this.show = function(){
+          // console.log("Show");
+          n.show();
+        }
+      };
     })();
 }
